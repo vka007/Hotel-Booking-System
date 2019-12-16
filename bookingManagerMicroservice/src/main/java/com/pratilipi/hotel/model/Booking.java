@@ -3,6 +3,8 @@ package com.pratilipi.hotel.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.pratilipi.hotel.controller.BookingController;
+
 @Document
 public class Booking {
 	
@@ -15,6 +17,8 @@ public class Booking {
 	String custUserId;
 	
 	int totalNights;
+	
+	public static int nights;
 	Long totalPrice;
 	
 	public Booking(String custFullName, String custEmail, String custPhone, String custUserId, int totalNights) {
@@ -24,8 +28,10 @@ public class Booking {
 		this.custPhone = custPhone;
 		this.custUserId = custUserId;
 		this.totalNights = totalNights;
+		this.nights = totalNights;
 	}
 
+	BookingController b = new BookingController();
 
 	public String getCustFullName() {
 		return custFullName;
@@ -72,14 +78,13 @@ public class Booking {
 	}
 
 	public void setTotalPrice(Long totalPrice) {
-		this.totalPrice = totalPrice;
+		this.totalPrice = (long) b.totprice * totalNights;
 	}
 
 	@Override
 	public String toString() {
 		return "Booking [custFullName=" + custFullName + ", custEmail=" + custEmail + ", custPhone=" + custPhone
-				+ ", custUserId=" + custUserId + ", totalNights=" + totalNights + ", totalPrice=" + totalPrice + "]";
+				+ ", custUserId=" + custUserId + ", totalNights=" + totalNights + "]";
 	}
-		
 
 }
